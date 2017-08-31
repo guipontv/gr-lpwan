@@ -106,7 +106,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         self.n_input_items = len(input_items[0])
         options[self.num](in0)
         len_out = min(len(out),self.n_input_items)
-        #TODO:
+        #TODO: Phase offset correction
         for i in range(len_out):
             out[i] = in0[i]*exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))
         self.consume(0, len_out)

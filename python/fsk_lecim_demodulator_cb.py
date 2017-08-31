@@ -78,6 +78,7 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
         Z = [0, 0, 0, 0]
         #iterable = (exp(1j*2*pi*(self.freq_dev+self.freq_off)*i/(self.sps*self.symbol_rate)) for i in range(len(in0)))
         #sine  = np.fromiter(iterable, np.complex64)
+        #TODO: phase offset correction 
         sine = np.array([exp(1j*2*pi*self.freq_dev*i/(self.sps*self.symbol_rate)) for i in range(len(in0))])
         sineconj = np.conj(sine)
         A = np.array([in0 * sine, in0 * sineconj])

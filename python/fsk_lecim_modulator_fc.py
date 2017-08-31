@@ -52,12 +52,15 @@ class fsk_lecim_modulator_fc(gr.interp_block):
         if(self.symbol_rate == 12500):
             modulo = 1
 
+        #Cumsum : we follow the phase
         self.cumsum = np.cumsum(np.array([in0[k/self.sps] for k in range(len(out))]))
         angle[:] = np.add(self.cumsum, np.array([self.counter]))
         self.counter += (np.sum(in0)*self.sps) 
         out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*angle[k]
                     *self.freq_dev/(self.sps*self.symbol_rate)) 
                    for k in range(len(out))], np.complex64)
+        
+        #cumsum doesn't work with modulation index = 0.5, phase jump
         if(self.symbol_rate == 37500):
             out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
                         *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
