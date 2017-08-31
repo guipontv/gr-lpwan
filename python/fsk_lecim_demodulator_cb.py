@@ -33,9 +33,9 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
         self.PFSK = PFSK
         self.sps = sps
         self.freq_dev = freq_dev
-        self.freq_off = 0
         self.symbol_rate = symbol_rate
         self.delay = 0
+        self.phase_off = 0
         gr.basic_block.__init__(self,
             name="fsk_lecim_demodulator_cb",
             in_sig=[np.complex64],
@@ -80,6 +80,7 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
         #sine  = np.fromiter(iterable, np.complex64)
         #TODO: phase offset correction 
         sine = np.array([exp(1j*2*pi*self.freq_dev*i/(self.sps*self.symbol_rate)) for i in range(len(in0))])
+        self.phase_off = np.angle(sine[-1])+2*pi*self.freq_dev/(self.sps*self.symbol_rate)
         sineconj = np.conj(sine)
         A = np.array([in0 * sine, in0 * sineconj])
         if self.PFSK:

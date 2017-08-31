@@ -44,29 +44,34 @@ class fsk_lecim_modulator_fc(gr.interp_block):
         in0 = input_items[0]
         out = output_items[0]
         angle = output_items[1]
-        #print len(in0)
+
+        #1st Method
         if(self.symbol_rate == 37500):
             modulo = 4
         if(self.symbol_rate == 25000):
             modulo = 2
         if(self.symbol_rate == 12500):
             modulo = 1
+        out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
+                            *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
+                            for k in range(len(out))], np.complex64)
+        angle[:] = np.angle(out)
+        self.counter = ((self.counter + len(in0))%modulo)
 
-        #Cumsum : we follow the phase
-        self.cumsum = np.cumsum(np.array([in0[k/self.sps] for k in range(len(out))]))
-        angle[:] = np.add(self.cumsum, np.array([self.counter]))
-        self.counter += (np.sum(in0)*self.sps) 
-        out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*angle[k]
-                    *self.freq_dev/(self.sps*self.symbol_rate)) 
-                   for k in range(len(out))], np.complex64)
-        
-        #cumsum doesn't work with modulation index = 0.5, phase jump
-        if(self.symbol_rate == 37500):
-            out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
-                        *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
-                        for k in range(len(out))], np.complex64)
-            angle[:] = np.angle(out)
-            self.counter = ((self.counter + len(in0))%modulo)
-        
+        #2nd Method cumsum : we follow the phase, cumsum doesn't work with modulation index = 0.5, phase jump
+        # self.cumsum = np.cumsum(np.array([in0[k/self.sps] for k in range(len(out))]))
+        # angle[:] = np.add(self.cumsum, np.array([self.counter]))
+        # self.counter += (np.sum(in0)*self.sps) 
+        # out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*angle[k]
+        #                     *self.freq_dev/(self.sps*self.symbol_rate)) 
+        #                     for k in range(len(out))], np.complex64)
+
+        #3rd Method
+        # out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
+        #                     *self.freq_dev*k/(self.sps*self.symbol_rate)) * exp(1j*self.phase_off) 
+        #                     for k in range(len(out))], np.complex64)
+        # angle[:] = np.angle(out)
+        # self.phase_off = np.angle(out[-1])+2*pi*self.freq_dev/(self.sps*self.symbol_rate)
+
         return len(output_items[0])
 

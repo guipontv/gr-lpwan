@@ -40,6 +40,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         self.len = len(self.preamble)
         self.n_input_items = 0
         self.num = 0
+        self.phase_off = 0
         gr.basic_block.__init__(self,
             name="fsk_lecim_freq_offset_est_cc",
             in_sig=[np.complex64],
@@ -95,7 +96,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         if(abs(freq_off - self.symbol_rate) < self.freq_dev):
             self.freq_off = freq_off - self.symbol_rate
         
-        self.add_item_tag(0, self.offset, self.key,  pmt.from_double(self.freq_off))
+        self.add_item_tag(0, self.offset, self.key, pmt.from_double(self.freq_off))
         self.num = 0
 
     def general_work(self, input_items, output_items):
@@ -106,9 +107,9 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         self.n_input_items = len(input_items[0])
         options[self.num](in0)
         len_out = min(len(out),self.n_input_items)
-        #TODO: Phase offset correction
         for i in range(len_out):
-            out[i] = in0[i]*exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))
+            out[i] = in0[i]*exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))*exp(1j*self.phase_off)
+        self.phase_off = np.angle(out[-1])+2*pi*self.freq_dev/(self.sps*self.symbol_rate)
         self.consume(0, len_out)
         self.produce(0, len_out)
         return -2
