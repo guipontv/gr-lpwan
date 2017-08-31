@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Aug 31 15:52:20 2017
+# Generated: Thu Aug 31 15:59:53 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -41,7 +41,7 @@ from gnuradio import qtgui
 
 class top_block(gr.top_block, Qt.QWidget):
 
-    def __init__(self, index=0.5, pdu_len=28, resampling=2, sps=10):
+    def __init__(self, index=0.5, pdu_len=28, resampling=1, sps=2):
         gr.top_block.__init__(self, "Top Block")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Top Block")
@@ -141,7 +141,6 @@ class top_block(gr.top_block, Qt.QWidget):
         self.blocks_multiply_xx_0 = blocks.multiply_vcc(1)
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((1, ))
         self.blocks_message_strobe_0 = blocks.message_strobe(pmt.intern("generate"), 5000)
-        self.blocks_message_debug_0 = blocks.message_debug()
         self.blocks_add_xx_0 = blocks.add_vcc(1)
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate_1*sps*resampling, analog.GR_COS_WAVE, 0, 1, 0)
         self.analog_noise_source_x_0 = analog.noise_source_c(analog.GR_GAUSSIAN, 0, 0)
@@ -153,7 +152,6 @@ class top_block(gr.top_block, Qt.QWidget):
         self.msg_connect((self.blocks_random_pdu_0, 'pdus'), (self.digital_crc32_async_bb_0, 'in'))
         self.msg_connect((self.digital_crc32_async_bb_0, 'out'), (self.lpwan_lecim_fsk_phy_0, 'in_tx'))
         self.msg_connect((self.digital_crc32_async_bb_0, 'out'), (self.lpwan_message_counter_0, 'in'))
-        self.msg_connect((self.digital_crc32_async_bb_1, 'out'), (self.blocks_message_debug_0, 'print_pdu'))
         self.msg_connect((self.digital_crc32_async_bb_1, 'out'), (self.lpwan_message_counter_0_0, 'in'))
         self.msg_connect((self.lpwan_lecim_fsk_phy_0, 'out_rx'), (self.digital_crc32_async_bb_1, 'in'))
         self.connect((self.analog_noise_source_x_0, 0), (self.blocks_add_xx_0, 0))
@@ -232,10 +230,10 @@ def argument_parser():
         "", "--pdu-len", dest="pdu_len", type="intx", default=28,
         help="Set PDU Length [default=%default]")
     parser.add_option(
-        "", "--resampling", dest="resampling", type="intx", default=2,
+        "", "--resampling", dest="resampling", type="intx", default=1,
         help="Set resampling [default=%default]")
     parser.add_option(
-        "", "--sps", dest="sps", type="intx", default=10,
+        "", "--sps", dest="sps", type="intx", default=2,
         help="Set Sample per symbol [default=%default]")
     return parser
 

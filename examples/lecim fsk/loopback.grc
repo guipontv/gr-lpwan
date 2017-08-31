@@ -390,7 +390,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -2865,7 +2865,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>2</value>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -2908,7 +2908,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>10</value>
+      <value>2</value>
     </param>
   </block>
   <connection>
@@ -2966,12 +2966,6 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_tag_gate_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_1_1</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>blocks_throttle_0</source_block_id>
     <sink_block_id>blocks_tag_gate_0</sink_block_id>
     <source_key>0</source_key>
@@ -3009,6 +3003,12 @@
   </connection>
   <connection>
     <source_block_id>lpwan_lecim_fsk_phy_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_1</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lpwan_lecim_fsk_phy_0</source_block_id>
     <sink_block_id>digital_crc32_async_bb_1</sink_block_id>
     <source_key>out_rx</source_key>
     <sink_key>in</sink_key>
@@ -3021,8 +3021,8 @@
   </connection>
   <connection>
     <source_block_id>lpwan_lecim_fsk_phy_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_1</sink_block_id>
-    <source_key>2</source_key>
+    <sink_block_id>qtgui_time_sink_x_1_1</sink_block_id>
+    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>

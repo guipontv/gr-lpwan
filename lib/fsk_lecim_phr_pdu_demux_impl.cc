@@ -218,7 +218,7 @@ bool fsk_lecim_phr_pdu_demux_impl::check_buffers_ready(
           break;
 
         case STATE_HEADER_RX_SUCCESS: {
-          std::cout<<"SUCCCCESSSSS no /////////////////// "<<d_phr_error<<"\n";
+          std::cout<<"SUCCESS no /////////////////// "<<d_phr_error<<"\n";
           d_phr_error =0;
           const int items_to_consume = d_output_symbols ? d_header_len * d_sf : d_header_len * d_sf * d_sps; 
           CONSUME_ITEMS(items_to_consume);
