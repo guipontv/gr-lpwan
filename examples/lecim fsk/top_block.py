@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Aug 31 15:59:53 2017
+# Generated: Thu Aug 31 16:01:59 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -41,7 +41,7 @@ from gnuradio import qtgui
 
 class top_block(gr.top_block, Qt.QWidget):
 
-    def __init__(self, index=0.5, pdu_len=28, resampling=1, sps=2):
+    def __init__(self, index=1, pdu_len=28, resampling=1, sps=2):
         gr.top_block.__init__(self, "Top Block")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Top Block")
@@ -121,7 +121,7 @@ class top_block(gr.top_block, Qt.QWidget):
             burst_tag="burst",
             data_whitening=True,
             fcs=False,
-            index=1,
+            index=index,
             pdu_len=32,
             pfsk=False,
             preamble_len=64,
@@ -175,6 +175,7 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_index(self, index):
         self.index = index
+        self.lpwan_lecim_fsk_phy_0.set_index(self.index)
 
     def get_pdu_len(self):
         return self.pdu_len
@@ -224,7 +225,7 @@ class top_block(gr.top_block, Qt.QWidget):
 def argument_parser():
     parser = OptionParser(usage="%prog: [options]", option_class=eng_option)
     parser.add_option(
-        "", "--index", dest="index", type="eng_float", default=eng_notation.num_to_str(0.5),
+        "", "--index", dest="index", type="eng_float", default=eng_notation.num_to_str(1),
         help="Set Modulation index [default=%default]")
     parser.add_option(
         "", "--pdu-len", dest="pdu_len", type="intx", default=28,
