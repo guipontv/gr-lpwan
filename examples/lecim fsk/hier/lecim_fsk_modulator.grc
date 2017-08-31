@@ -513,7 +513,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(752, 364)</value>
+      <value>(608, 364)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -537,7 +537,7 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>packet_len*sps</value>
+      <value>packet_len*sps*resampling</value>
     </param>
     <param>
       <key>vlen</key>
@@ -623,7 +623,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(584, 364)</value>
+      <value>(440, 364)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -647,7 +647,7 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>packet_len*sps</value>
+      <value>packet_len*sps*resampling</value>
     </param>
     <param>
       <key>vlen</key>
@@ -1414,7 +1414,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(368, 344)</value>
+      <value>(776, 344)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1630,7 +1630,7 @@
   </connection>
   <connection>
     <source_block_id>blocks_vector_to_stream_0_0</source_block_id>
-    <sink_block_id>rational_resampler_xxx_0</sink_block_id>
+    <sink_block_id>blocks_stream_to_tagged_stream_1_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1660,7 +1660,7 @@
   </connection>
   <connection>
     <source_block_id>lpwan_fsk_lecim_modulator_fc_0</source_block_id>
-    <sink_block_id>blocks_stream_to_vector_0_0</sink_block_id>
+    <sink_block_id>rational_resampler_xxx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1684,7 +1684,7 @@
   </connection>
   <connection>
     <source_block_id>rational_resampler_xxx_0</source_block_id>
-    <sink_block_id>blocks_stream_to_tagged_stream_1_0</sink_block_id>
+    <sink_block_id>blocks_stream_to_vector_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
