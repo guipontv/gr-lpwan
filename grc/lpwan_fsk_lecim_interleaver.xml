@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<block>
+  <name>LECIM FSK Interleaver Tagged</name>
+  <key>lpwan_fsk_lecim_interleaver</key>
+  <category>[LPWAN]</category>
+  <import>import lpwan</import>
+  <make>lpwan.fsk_lecim_interleaver($phr, $nBlock, $len_tag)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>PHR</name>
+    <key>phr</key>
+    <type>enum</type>
+    <option>
+      <name>True</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>False</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Number of block</name>
+    <key>nBlock</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Length tag</name>
+    <key>len_tag</key>
+    <type>string</type>
+  </param>
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<block>
+  <name>LECIM FSK Signal Detector</name>
+  <key>lpwan_fsk_lecim_synchronizer_cc</key>
+  <category>[LPWAN]</category>
+  <import>import lpwan</import>
+  <make>lpwan.fsk_lecim_synchronizer_cc($preamble, $sps, $threshold)</make>
+  <param>
+    <name>preamble</name>
+    <key>preamble</key>
+    <type>complex_vector</type>
+  </param>
+
+  <param>
+    <name>Samples per symbol</name>
+    <key>sps</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Threshold</name>
+    <key>threshold</key>
+    <value>0.9</value>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+  </sink>
+
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+    <source>
+    <name>corr</name>
+    <type>complex</type>
+    <optional>1</optional>
+  </source>
+</block>

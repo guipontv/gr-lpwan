@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<block>
+  <name>fsk_lecim_detector_cb</name>
+  <key>lpwan_fsk_lecim_detector_cb</key>
+  <category>[LPWAN]</category>
+  <import>import lpwan</import>
+  <make>lpwan.fsk_lecim_detector_cb($PFSK, $sps)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Samples per Symbol</name>
+    <key>sps</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>P-FSK</name>
+    <key>PFSK</key>
+    <type>bool</type>
+  </param>
+
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+  </sink>
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>

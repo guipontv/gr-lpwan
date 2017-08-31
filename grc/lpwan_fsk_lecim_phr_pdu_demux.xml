@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<block>
+  <name>LECIM FSK PHR/PDU Demux</name>
+  <key>lpwan_fsk_lecim_phr_pdu_demux</key>
+  <category>[LPWAN]</category>
+  <import>import lpwan</import>
+  <make>lpwan.fsk_lecim_phr_pdu_demux($sps, $symbol_rate, $sf, $output_symbols)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+
+  <param>
+    <name>Sample per symbol</name>
+    <key>sps</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Symbol rate</name>
+    <key>symbol_rate</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Spreading factor</name>
+    <key>sf</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Output Format</name>
+    <key>output_symbols</key>
+    <type>enum</type>
+    <option>
+      <name>Items</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>Symbols</name>
+      <key>True</key>
+    </option>
+  </param>
+    <param>
+    <name>IO Type</name>
+    <key>type</key>
+    <type>enum</type>
+    <option>
+      <name>Complex</name>
+      <key>complex</key>
+      <opt>itemsize:gr.sizeof_gr_complex</opt>
+    </option>
+     <option>
+      <name>Byte</name>
+      <key>byte</key>
+      <opt>itemsize:gr.sizeof_char</opt>
+    </option>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>$type</type>
+    <vlen>{True: $items_per_symbol, False: 1}[$output_symbols]</vlen>
+  </sink>
+  <sink>
+    <name>phr_data</name>
+    <type>message</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out_phr</name>
+    <type>$type</type>
+    <vlen>{True: $items_per_symbol, False: 1}[$output_symbols]</vlen>
+  </source>
+  <source>
+    <name>out_pdu</name>
+    <type>$type</type>
+    <vlen>{True: $items_per_symbol, False: 1}[$output_symbols]</vlen>
+  </source>
+</block>
