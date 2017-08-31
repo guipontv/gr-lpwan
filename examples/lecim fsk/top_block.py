@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Aug 31 17:10:23 2017
+# Generated: Thu Aug 31 17:21:26 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -28,17 +28,16 @@ from gnuradio import gr
 from gnuradio import uhd
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
-from lpwan_lecim_fsk_phy_tx import lpwan_lecim_fsk_phy_tx  # grc-generated hier_block
+from lpwan_lecim_fsk_phy_rx import lpwan_lecim_fsk_phy_rx  # grc-generated hier_block
 from optparse import OptionParser
 import numpy as np
-import pmt
 import time
 from gnuradio import qtgui
 
 
 class top_block(gr.top_block, Qt.QWidget):
 
-    def __init__(self, index=1, pdu_len=28, resampling=2, sps=10):
+    def __init__(self, index=1, sps=2, resampling=2, pdu_len=28):
         gr.top_block.__init__(self, "Top Block")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Top Block")
@@ -66,9 +65,9 @@ class top_block(gr.top_block, Qt.QWidget):
         # Parameters
         ##################################################
         self.index = index
-        self.pdu_len = pdu_len
-        self.resampling = resampling
         self.sps = sps
+        self.resampling = resampling
+        self.pdu_len = pdu_len
 
         ##################################################
         # Variables
@@ -81,25 +80,23 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.uhd_usrp_sink_0 = uhd.usrp_sink(
+        self.uhd_usrp_source_0 = uhd.usrp_source(
         	",".join(("", "")),
         	uhd.stream_args(
         		cpu_format="fc32",
         		channels=range(1),
         	),
-        	'burst',
         )
-        self.uhd_usrp_sink_0.set_samp_rate(samp_rate_1*sps*resampling)
-        self.uhd_usrp_sink_0.set_center_freq(902200000, 0)
-        self.uhd_usrp_sink_0.set_gain(30, 0)
-        self.uhd_usrp_sink_0.set_antenna('TX/RX', 0)
-        self.lpwan_lecim_fsk_phy_tx_0 = lpwan_lecim_fsk_phy_tx(
+        self.uhd_usrp_source_0.set_samp_rate(samp_rate_1*sps*resampling)
+        self.uhd_usrp_source_0.set_center_freq(902200000, 0)
+        self.uhd_usrp_source_0.set_gain(30, 0)
+        self.uhd_usrp_source_0.set_antenna('RX2', 0)
+        self.lpwan_lecim_fsk_phy_rx_0 = lpwan_lecim_fsk_phy_rx(
             band=False,
-            burst_tag="burst",
             data_whitening=True,
             fcs=False,
             index=index,
-            pdu_len=pdu_len + 4,
+            pdu_len=pdu_len +4,
             pfsk=False,
             preamble_len=64,
             resampling=resampling,
@@ -107,18 +104,18 @@ class top_block(gr.top_block, Qt.QWidget):
             spreading_alternating=False,
             spreading_factor=16,
             sps=sps,
+            threshold_0=0.2,
+            threshold_1=0.8,
         )
-        self.digital_crc32_async_bb_0 = digital.crc32_async_bb(False)
-        self.blocks_random_pdu_0 = blocks.random_pdu(pdu_len, pdu_len, chr(0xFF), 1)
-        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.intern("generate"), 2000)
+        self.digital_crc32_async_bb_1 = digital.crc32_async_bb(True)
+        self.blocks_message_debug_0 = blocks.message_debug()
 
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.blocks_random_pdu_0, 'generate'))
-        self.msg_connect((self.blocks_random_pdu_0, 'pdus'), (self.digital_crc32_async_bb_0, 'in'))
-        self.msg_connect((self.digital_crc32_async_bb_0, 'out'), (self.lpwan_lecim_fsk_phy_tx_0, 'in_tx'))
-        self.connect((self.lpwan_lecim_fsk_phy_tx_0, 0), (self.uhd_usrp_sink_0, 0))
+        self.msg_connect((self.digital_crc32_async_bb_1, 'out'), (self.blocks_message_debug_0, 'print_pdu'))
+        self.msg_connect((self.lpwan_lecim_fsk_phy_rx_0, 'out_rx'), (self.digital_crc32_async_bb_1, 'in'))
+        self.connect((self.uhd_usrp_source_0, 0), (self.lpwan_lecim_fsk_phy_rx_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
@@ -130,30 +127,30 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_index(self, index):
         self.index = index
-        self.lpwan_lecim_fsk_phy_tx_0.set_index(self.index)
-
-    def get_pdu_len(self):
-        return self.pdu_len
-
-    def set_pdu_len(self, pdu_len):
-        self.pdu_len = pdu_len
-        self.lpwan_lecim_fsk_phy_tx_0.set_pdu_len(self.pdu_len + 4)
-
-    def get_resampling(self):
-        return self.resampling
-
-    def set_resampling(self, resampling):
-        self.resampling = resampling
-        self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
-        self.lpwan_lecim_fsk_phy_tx_0.set_resampling(self.resampling)
+        self.lpwan_lecim_fsk_phy_rx_0.set_index(self.index)
 
     def get_sps(self):
         return self.sps
 
     def set_sps(self, sps):
         self.sps = sps
-        self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
-        self.lpwan_lecim_fsk_phy_tx_0.set_sps(self.sps)
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
+        self.lpwan_lecim_fsk_phy_rx_0.set_sps(self.sps)
+
+    def get_resampling(self):
+        return self.resampling
+
+    def set_resampling(self, resampling):
+        self.resampling = resampling
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
+        self.lpwan_lecim_fsk_phy_rx_0.set_resampling(self.resampling)
+
+    def get_pdu_len(self):
+        return self.pdu_len
+
+    def set_pdu_len(self, pdu_len):
+        self.pdu_len = pdu_len
+        self.lpwan_lecim_fsk_phy_rx_0.set_pdu_len(self.pdu_len +4)
 
     def get_samp_rate_3(self):
         return self.samp_rate_3
@@ -172,7 +169,7 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_samp_rate_1(self, samp_rate_1):
         self.samp_rate_1 = samp_rate_1
-        self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate_1*self.sps*self.resampling)
 
     def get_samp_rate_0(self):
         return self.samp_rate_0
@@ -187,11 +184,11 @@ def argument_parser():
         "", "--index", dest="index", type="eng_float", default=eng_notation.num_to_str(1),
         help="Set Modulation index [default=%default]")
     parser.add_option(
+        "", "--sps", dest="sps", type="intx", default=2,
+        help="Set Sample per symbol [default=%default]")
+    parser.add_option(
         "", "--pdu-len", dest="pdu_len", type="intx", default=28,
         help="Set PDU Length [default=%default]")
-    parser.add_option(
-        "", "--sps", dest="sps", type="intx", default=10,
-        help="Set Sample per symbol [default=%default]")
     return parser
 
 
@@ -205,7 +202,7 @@ def main(top_block_cls=top_block, options=None):
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(index=options.index, pdu_len=options.pdu_len, sps=options.sps)
+    tb = top_block_cls(index=options.index, sps=options.sps, pdu_len=options.pdu_len)
     tb.start()
     tb.show()
 
