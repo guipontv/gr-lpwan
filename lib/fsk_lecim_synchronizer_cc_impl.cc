@@ -134,7 +134,6 @@ namespace gr {
 
       //volk_32fc_magnitude_32f(d_rr, in, noutput_items);
       for(int i = 0; i<noutput_items; i++){
-        doublecorr[i] = doublecorr[i]+d_doublecorr1[i]+d_doublecorr2[i];
         d_rr[i] = abs(doublecorr[i])+abs(d_doublecorr1[i])+abs(d_doublecorr2[i]);
       }
       volk_32f_index_max_16u(&index_local_max, d_rr, noutput_items);

@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Aug 31 15:32:21 2017
+# Generated: Thu Aug 31 15:52:20 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -41,7 +41,7 @@ from gnuradio import qtgui
 
 class top_block(gr.top_block, Qt.QWidget):
 
-    def __init__(self, index=0.5, pdu_len=28, resampling=1, sps=10):
+    def __init__(self, index=0.5, pdu_len=28, resampling=2, sps=10):
         gr.top_block.__init__(self, "Top Block")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Top Block")
@@ -130,8 +130,8 @@ class top_block(gr.top_block, Qt.QWidget):
             spreading_alternating=False,
             spreading_factor=16,
             sps=sps,
-            threshold_0=0.5,
-            threshold_1=0.7,
+            threshold_0=0.99,
+            threshold_1=0.99,
         )
         self.digital_crc32_async_bb_1 = digital.crc32_async_bb(True)
         self.digital_crc32_async_bb_0 = digital.crc32_async_bb(False)
@@ -140,7 +140,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.blocks_random_pdu_0 = blocks.random_pdu(pdu_len, pdu_len, chr(0xFF), 1)
         self.blocks_multiply_xx_0 = blocks.multiply_vcc(1)
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((1, ))
-        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.intern("generate"), 1000)
+        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.intern("generate"), 5000)
         self.blocks_message_debug_0 = blocks.message_debug()
         self.blocks_add_xx_0 = blocks.add_vcc(1)
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate_1*sps*resampling, analog.GR_COS_WAVE, 0, 1, 0)
@@ -232,7 +232,7 @@ def argument_parser():
         "", "--pdu-len", dest="pdu_len", type="intx", default=28,
         help="Set PDU Length [default=%default]")
     parser.add_option(
-        "", "--resampling", dest="resampling", type="intx", default=1,
+        "", "--resampling", dest="resampling", type="intx", default=2,
         help="Set resampling [default=%default]")
     parser.add_option(
         "", "--sps", dest="sps", type="intx", default=10,
