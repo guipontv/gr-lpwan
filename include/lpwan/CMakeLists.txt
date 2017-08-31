@@ -40,6 +40,12 @@ install(FILES
     mac_field_fragment.h
     mac_field_frak.h
     dsss_filter_crc_packets.h
-    DESTINATION ${GR_INCLUDE_DIR}/gnuradio/lpwan
+    fsk_lecim_interleaver.h
+    fsk_lecim_deinterleaver.h
+    fsk_lecim_phr_pdu_demux.h
+    fsk_lecim_corr_est_cc.h
+    fsk_lecim_phr_parser.h
+    fsk_lecim_normalize_fcc.h
+    fsk_lecim_synchronizer_cc.h DESTINATION ${GR_INCLUDE_DIR}/gnuradio/lpwan
     COMPONENT "lpwan_devel"
 )

@@ -44,7 +44,14 @@ list(APPEND lpwan_sources
     mac_field_ie_fscd.cc
     mac_field_fragment.cc
     mac_field_frak.cc
-    dsss_filter_crc_packets_impl.cc )
+    dsss_filter_crc_packets_impl.cc
+    fsk_lecim_interleaver_impl.cc
+    fsk_lecim_deinterleaver_impl.cc
+    fsk_lecim_phr_pdu_demux_impl.cc
+    fsk_lecim_corr_est_cc_impl.cc
+    fsk_lecim_phr_parser_impl.cc
+    fsk_lecim_normalize_fcc_impl.cc
+    fsk_lecim_synchronizer_cc_impl.cc )
 
 list(APPEND lpwan_libs
     ${Boost_LIBRARIES}
@@ -69,4 +76,4 @@ install(TARGETS gnuradio-lpwan
     LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
     ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
     RUNTIME DESTINATION bin              # .dll file
-)
+)    

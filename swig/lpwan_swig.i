@@ -36,6 +36,13 @@
 #include "lpwan/dsss_snr_estimator.h"
 #include "lpwan/dsss_fragmentation.h"
 #include "lpwan/dsss_filter_crc_packets.h"
+#include "lpwan/fsk_lecim_interleaver.h"
+#include "lpwan/fsk_lecim_deinterleaver.h"
+#include "lpwan/fsk_lecim_phr_pdu_demux.h"
+#include "lpwan/fsk_lecim_corr_est_cc.h"
+#include "lpwan/fsk_lecim_phr_parser.h"
+#include "lpwan/fsk_lecim_normalize_fcc.h"
+#include "lpwan/fsk_lecim_synchronizer_cc.h"
 %}
 
 %include "lpwan/dsss_interleaver_bb.h"
@@ -68,3 +75,19 @@ GR_SWIG_BLOCK_MAGIC2(lpwan, dsss_fragmentation);
 %include "lpwan/dsss_filter_crc_packets.h"
 GR_SWIG_BLOCK_MAGIC2(lpwan, dsss_filter_crc_packets);
 
+%include "lpwan/fsk_lecim_interleaver.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_interleaver);
+%include "lpwan/fsk_lecim_deinterleaver.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_deinterleaver);
+%include "lpwan/fsk_lecim_phr_pdu_demux.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_phr_pdu_demux);
+%include "lpwan/fsk_lecim_corr_est_cc.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_corr_est_cc);
+%include "lpwan/fsk_lecim_phr_parser.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_phr_parser);
+
+%include "lpwan/fsk_lecim_normalize_fcc.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_normalize_fcc);
+
+%include "lpwan/fsk_lecim_synchronizer_cc.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_synchronizer_cc);
