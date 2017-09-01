@@ -21,7 +21,7 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-from fsk_lecim_whitening import fsk_lecim_whitening
+from fsk_lecim_whitening_bb import fsk_lecim_whitening_bb
 
 class qa_fsk_lecim_whitening_bb (gr_unittest.TestCase):
 
@@ -31,10 +31,39 @@ class qa_fsk_lecim_whitening_bb (gr_unittest.TestCase):
     def tearDown (self):
         self.tb = None
 
+    #Whitening
     def test_001_t (self):
-        # set up fg
+    	src_data = (0,0,0,1,1,1,0,1,1,0,1,0,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,0,0,0)
+        PN9n = (0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,1,0,1,1,0,0,1,1,0,1,1,0,1,1)
+        expected_result = tuple(src_data[i]^PN9n[i] for i in range(len(src_data)))
+        
+        src = blocks.vector_source_b(src_data)
+        white = fsk_lecim_whitening_bb(True)
+        snk = blocks.vector_sink_b()
+
+        self.tb.connect (src, white)
+        self.tb.connect (white, snk)
         self.tb.run ()
-        # check data
+
+        result_data = snk.data ()
+        self.assertEqual (expected_result, result_data)
+
+    #Dewhitening
+    def test_002_t (self):
+    	src_data = (0,0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,1,1,1,0,1,1,1,1,0,1,0,0,1,1)
+        PN9n = (0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,1,0,1,1,0,0,1,1,0,1,1,0,1,1)
+        expected_result = tuple(src_data[i]^PN9n[i] for i in range(len(src_data)))
+        
+        src = blocks.vector_source_b(src_data)
+        dewhite = fsk_lecim_whitening_bb(True)
+        snk = blocks.vector_sink_b()
+
+        self.tb.connect (src, dewhite)
+        self.tb.connect (dewhite, snk)
+        self.tb.run ()
+
+        result_data = snk.data ()
+        self.assertEqual (expected_result, result_data)
 
 
 if __name__ == '__main__':
