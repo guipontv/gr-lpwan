@@ -978,7 +978,7 @@
     </param>
     <param>
       <key>pfsk</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>preamble_len</key>
