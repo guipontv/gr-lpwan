@@ -40,12 +40,8 @@ GR_PYTHON_INSTALL(
     fsk_lecim_whitening_bb.py
     fsk_lecim_demodulator_cb.py
     fsk_lecim_zero_depadding_bb.py
-    fsk_lecim_detector_cb.py
-    fsk_lecim_correlator_ccc.py
     fsk_lecim_freq_offset_est_cc.py
-    fsk_lecim_SFD_corr_bb.py
-    fsk_lecim_detector_cc.py
-    fsk_lecim_time_synchronizer_cc.py DESTINATION ${GR_PYTHON_DIR}/lpwan
+    DESTINATION ${GR_PYTHON_DIR}/lpwan
     COMPONENT "lpwan_python"
 )
 
@@ -82,10 +78,6 @@ GR_ADD_TEST(qa_fsk_lecim_corr_est ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DI
 GR_ADD_TEST(qa_fsk_lecim_phr_parser ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_phr_parser.py)
 GR_ADD_TEST(qa_fsk_lecim_zero_depadding_bb_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_zero_depadding_bb_bb.py)
 GR_ADD_TEST(qa_fsk_lecim_normalize_fcc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_normalize_fcc.py)
-GR_ADD_TEST(qa_fsk_lecim_detector_cb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_detector_cb.py)
-GR_ADD_TEST(qa_fsk_lecim_correlator_ccc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_correlator_ccc.py)
 GR_ADD_TEST(qa_fsk_lecim_freq_offset_est_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_freq_offset_est_cc.py)
-GR_ADD_TEST(qa_fsk_lecim_SFD_corr_bb ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_SFD_corr_bb.py)
-GR_ADD_TEST(qa_fsk_lecim_detector_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_detector_cc.py)
 GR_ADD_TEST(qa_fsk_lecim_synchronizer_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_synchronizer_cc.py)
 GR_ADD_TEST(qa_fsk_lecim_time_synchronizer_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_time_synchronizer_cc.py)

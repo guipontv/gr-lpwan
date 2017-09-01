@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>fsk_lecim_freq_offset_est_cc</name>
+  <name>LECIM FSK Frequency offset estimator</name>
   <key>lpwan_fsk_lecim_freq_offset_est_cc</key>
   <category>[LPWAN]</category>
   <import>import lpwan</import>

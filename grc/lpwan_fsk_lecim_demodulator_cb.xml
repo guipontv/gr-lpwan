@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>LECIM FSK Demodulator 2</name>
+  <name>LECIM FSK Demodulator</name>
   <key>lpwan_fsk_lecim_demodulator_cb</key>
   <category>[LPWAN]</category>
   <import>import lpwan</import>
