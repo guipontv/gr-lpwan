@@ -50,7 +50,7 @@ namespace gr {
                                                                     int sps, float threshold)
       : gr::sync_block("fsk_lecim_synchronizer_cc",
               gr::io_signature::make(4, 4, sizeof(gr_complex)),
-              gr::io_signature::make(1, 2, sizeof(gr_complex))),
+              gr::io_signature::make2(1, 2, sizeof(gr_complex), sizeof(float))),
       d_src_id(pmt::intern(alias()))
     {
       d_sps = sps;
@@ -79,6 +79,7 @@ namespace gr {
       d_preamble1.pop_back();
       d_preamble1.pop_back();
       std::reverse(d_preamble1.begin(), d_preamble1.end());
+
       for(size_t i=0; i < d_preamble1.size()-3; i++) {
           d_preamble2[i] = conj(d_preamble2[i])*d_preamble2[i+3];
       }
@@ -95,7 +96,7 @@ namespace gr {
       set_output_multiple(d_filter->set_taps(d_preamble));
       set_history(d_preamble.size()+1);
       declare_sample_delay(0, d_preamble.size());
-      std::cout<<"detection threshold is "<<d_nsamples*d_nsamples*9*d_threshold<<"\n";
+      std::cout<<"detection threshold is "<<d_nsamples*3*d_threshold<<"\n";
     }
 
     /*
@@ -105,6 +106,9 @@ namespace gr {
     {
       delete d_filter;
       volk_free(d_doublecorr);
+      volk_free(d_doublecorr1);
+      volk_free(d_doublecorr2);
+      volk_free(d_rr);
     }
 
     int
@@ -118,27 +122,27 @@ namespace gr {
       const gr_complex *in3 = (const gr_complex *) input_items[3];
       gr_complex *out = (gr_complex *) output_items[0];
 
-      gr_complex *doublecorr;
+      float *drr;
       if (output_items.size() > 1)
-          doublecorr = (gr_complex *) output_items[1];
+          drr = (float *) output_items[1];
       else
-          doublecorr = d_doublecorr;
+          drr = d_rr;
 
       uint16_t index_local_max = 0;
       unsigned int hist_len = history()-1;
 
 
-      d_filter->filter(noutput_items, in1, doublecorr);
+      d_filter->filter(noutput_items, in1, d_doublecorr);
       d_filter1->filter(noutput_items, in2, d_doublecorr1);
       d_filter2->filter(noutput_items, in3, d_doublecorr2);
 
       //volk_32fc_magnitude_32f(d_rr, in, noutput_items);
       for(int i = 0; i<noutput_items; i++){
-        d_rr[i] = abs(doublecorr[i])+abs(d_doublecorr1[i])+abs(d_doublecorr2[i]);
+        drr[i] = abs(d_doublecorr[i])+abs(d_doublecorr1[i])+abs(d_doublecorr2[i]);
       }
-      volk_32f_index_max_16u(&index_local_max, d_rr, noutput_items);
+      volk_32f_index_max_16u(&index_local_max, drr, noutput_items);
 
-      if(pow(d_rr[index_local_max],2)>d_nsamples*d_nsamples*9*d_threshold){
+      if(drr[index_local_max]>d_nsamples*3*d_threshold){
         //std::cout<<d_rr[index_local_max]<<" "<<pow(abs(doublecorr[index_local_max]),2)<<"\n";
         //for(int i = 0; i<10; i++){
           //float result;
@@ -146,7 +150,7 @@ namespace gr {
           //std::cout<< i <<" "<<result + 2*abs(doublecorr[index_local_max])<<"\n";
         //}
         add_item_tag(0, nitems_written(0) + index_local_max - hist_len + 1, pmt::intern("corr_start"),
-                      pmt::from_double(pow(d_rr[index_local_max],2)), d_src_id);
+                      pmt::from_double(drr[index_local_max]), d_src_id);
         //add_item_tag(0, nitems_written(0) + index_local_max - hist_len + 1 + 1024, pmt::intern("SFD_start"),
         //              pmt::from_double(pow(d_rr[index_local_max],2)), d_src_id);
         //add_item_tag(0, nitems_written(0) + index_local_max - hist_len + 1 + 1056, pmt::intern("phr_start"),

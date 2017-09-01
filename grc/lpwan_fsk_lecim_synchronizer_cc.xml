@@ -38,7 +38,7 @@
     <type>complex</type>
   </sink>
   <sink>
-    <name>in2</name>
+    <name>in3</name>
     <type>complex</type>
   </sink>
 
@@ -46,9 +46,9 @@
     <name>out</name>
     <type>complex</type>
   </source>
-    <source>
-    <name>corr</name>
-    <type>complex</type>
+  <source>
+    <name>double_corr</name>
+    <type>float</type>
     <optional>1</optional>
   </source>
 </block>
