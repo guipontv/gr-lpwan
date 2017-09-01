@@ -57,7 +57,7 @@ class qa_fsk_lecim_despreading_bb (gr_unittest.TestCase):
     def test_002_t (self):
         # set up fg
         expected_result = (0,0,0,1,1,1,0)
-        src_data= (1,0,1,0,
+        src_data = (1,0,1,0,
         					1,0,1,0, 
         					1,0,1,0,
         					0,1,0,1, 

@@ -472,7 +472,7 @@
     </param>
     <param>
       <key>pfsk</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>preamble_len</key>
