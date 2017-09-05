@@ -64,16 +64,17 @@ namespace gr {
               gr::io_signature::make(2, 2,  (output_symbols ?  sizeof(unsigned char) : sizeof (gr_complex)))), //sizeof(gr_complex)
       d_header_len(44),
       d_sps(sps),
-      d_symbol_rate(symbol_rate),
+      d_symbol_rate(symbol_rate), // unuseful
       d_state(STATE_SEARCH_SIGNAL),
       d_phr_error(0),
       d_sf(sf),
       d_key(pmt::intern("phr_start")),
       d_len_tag_key(pmt::intern("phr_info")),
-      d_output_symbols(output_symbols),
+      d_output_symbols(output_symbols), //not relevant anymore
       d_itemsize(0),
       d_curr_payload_len(0),
       d_nblock(1),
+      d_counter(0),
       d_counter_phr(0),
       d_counter_pdu(0),
       d_n_to_send(0)
@@ -218,7 +219,8 @@ bool fsk_lecim_phr_pdu_demux_impl::check_buffers_ready(
           break;
 
         case STATE_HEADER_RX_SUCCESS: {
-          std::cout<<"SUCCESS no /////////////////// "<<d_phr_error<<"\n";
+          d_counter++;
+          std::cout<<"SUCCESS no /////////////////// "<<d_phr_error<<" /// "<< d_counter <<"\n";
           d_phr_error =0;
           const int items_to_consume = d_output_symbols ? d_header_len * d_sf : d_header_len * d_sf * d_sps; 
           CONSUME_ITEMS(items_to_consume);

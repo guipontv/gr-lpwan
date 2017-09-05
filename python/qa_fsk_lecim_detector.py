@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # 
-# Copyright 2017 Victor Guipont.
+# Copyright 2017 <+YOU OR YOUR COMPANY+>.
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 import lpwan_swig as lpwan
 
-class qa_fsk_lecim_interleaver (gr_unittest.TestCase):
+class qa_fsk_lecim_detector (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
 
     def tearDown (self):
         self.tb = None
-    # Interleaving PHR
+
     def test_001_t (self):
         # set up fg
         self.tb.run ()
@@ -38,4 +38,4 @@ class qa_fsk_lecim_interleaver (gr_unittest.TestCase):
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_fsk_lecim_interleaver, "qa_fsk_lecim_interleaver.xml")
+    gr_unittest.run(qa_fsk_lecim_detector, "qa_fsk_lecim_detector.xml")

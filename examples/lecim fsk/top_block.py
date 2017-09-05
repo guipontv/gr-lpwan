@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Fri Sep  1 16:01:23 2017
+# Generated: Tue Sep  5 14:57:13 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -33,8 +33,8 @@ from gnuradio.filter import firdes
 from lpwan_lecim_fsk_phy import lpwan_lecim_fsk_phy  # grc-generated hier_block
 from optparse import OptionParser
 import lpwan
+import numpy
 import numpy as np
-import pmt
 import sip
 from gnuradio import qtgui
 
@@ -84,7 +84,7 @@ class top_block(gr.top_block, Qt.QWidget):
         # Blocks
         ##################################################
         self.qtgui_time_sink_x_0_0 = qtgui.time_sink_f(
-        	1024*16, #size
+        	1024*22, #size
         	samp_rate_1*sps, #samp_rate
         	"", #name
         	1 #number of inputs
@@ -130,63 +130,16 @@ class top_block(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_win)
-        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
-        	1024*16, #size
-        	samp_rate_1*sps, #samp_rate
-        	"", #name
-        	1 #number of inputs
-        )
-        self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(0, 3000)
-
-        self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0.enable_tags(-1, True)
-        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_TAG, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "burst")
-        self.qtgui_time_sink_x_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0.enable_grid(False)
-        self.qtgui_time_sink_x_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0.enable_control_panel(False)
-
-        if not True:
-          self.qtgui_time_sink_x_0.disable_legend()
-
-        labels = ['', '', '', '', '',
-                  '', '', '', '', '']
-        widths = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        colors = ["blue", "red", "green", "black", "cyan",
-                  "magenta", "yellow", "dark red", "dark green", "blue"]
-        styles = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-                   -1, -1, -1, -1, -1]
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-                  1.0, 1.0, 1.0, 1.0, 1.0]
-
-        for i in xrange(1):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.qtgui_number_sink_0 = qtgui.number_sink(
             gr.sizeof_float,
             0,
             qtgui.NUM_GRAPH_NONE,
-            2
+            4
         )
         self.qtgui_number_sink_0.set_update_time(0.10)
         self.qtgui_number_sink_0.set_title("")
 
-        labels = ['', '', '', '', '',
+        labels = ["Packet sent", "PHR", "Before CRC32", '', '',
                   '', '', '', '', '']
         units = ['', '', '', '', '',
                  '', '', '', '', '']
@@ -194,7 +147,7 @@ class top_block(gr.top_block, Qt.QWidget):
                   ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black")]
         factor = [1, 1, 1, 1, 1,
                   1, 1, 1, 1, 1]
-        for i in xrange(2):
+        for i in xrange(4):
             self.qtgui_number_sink_0.set_min(i, -1)
             self.qtgui_number_sink_0.set_max(i, 1)
             self.qtgui_number_sink_0.set_color(i, colors[i][0], colors[i][1])
@@ -208,6 +161,8 @@ class top_block(gr.top_block, Qt.QWidget):
         self.qtgui_number_sink_0.enable_autoscale(False)
         self._qtgui_number_sink_0_win = sip.wrapinstance(self.qtgui_number_sink_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_number_sink_0_win)
+        self.lpwan_message_counter_0_0_0_0 = lpwan.message_counter(0, 1)
+        self.lpwan_message_counter_0_0_0 = lpwan.message_counter(0, 1)
         self.lpwan_message_counter_0_0 = lpwan.message_counter(0, 1)
         self.lpwan_message_counter_0 = lpwan.message_counter(0, 1)
         self.lpwan_lecim_fsk_phy_0 = lpwan_lecim_fsk_phy(
@@ -217,7 +172,7 @@ class top_block(gr.top_block, Qt.QWidget):
             fcs=False,
             index=index,
             pdu_len=32,
-            pfsk=True,
+            pfsk=False,
             preamble_len=64,
             resampling=resampling,
             spreading=True,
@@ -230,38 +185,42 @@ class top_block(gr.top_block, Qt.QWidget):
         self.digital_crc32_async_bb_1 = digital.crc32_async_bb(True)
         self.digital_crc32_async_bb_0 = digital.crc32_async_bb(False)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate_1 * sps *resampling,True)
+        self.blocks_tagged_stream_to_pdu_0 = blocks.tagged_stream_to_pdu(blocks.byte_t, 'packet_len')
         self.blocks_tag_gate_0 = blocks.tag_gate(gr.sizeof_gr_complex * 1, True)
-        self.blocks_random_pdu_0 = blocks.random_pdu(pdu_len, pdu_len, chr(0xFF), 1)
+        self.blocks_stream_to_tagged_stream_0 = blocks.stream_to_tagged_stream(gr.sizeof_char, 1, 28, "packet_len")
         self.blocks_multiply_xx_0 = blocks.multiply_vcc(1)
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vcc((1, ))
-        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.intern("generate"), 5000)
-        self.blocks_complex_to_mag_squared_0 = blocks.complex_to_mag_squared(1)
+        self.blocks_message_debug_0 = blocks.message_debug()
         self.blocks_add_xx_0 = blocks.add_vcc(1)
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate_1*sps*resampling, analog.GR_COS_WAVE, 0, 1, 0)
+        self.analog_random_source_x_0 = blocks.vector_source_b(map(int, numpy.random.randint(0, 255, 28*10)), False)
         self.analog_noise_source_x_0 = analog.noise_source_c(analog.GR_GAUSSIAN, 0, 0)
 
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.blocks_random_pdu_0, 'generate'))
-        self.msg_connect((self.blocks_random_pdu_0, 'pdus'), (self.digital_crc32_async_bb_0, 'in'))
+        self.msg_connect((self.blocks_tagged_stream_to_pdu_0, 'pdus'), (self.digital_crc32_async_bb_0, 'in'))
         self.msg_connect((self.digital_crc32_async_bb_0, 'out'), (self.lpwan_lecim_fsk_phy_0, 'in_tx'))
         self.msg_connect((self.digital_crc32_async_bb_0, 'out'), (self.lpwan_message_counter_0, 'in'))
-        self.msg_connect((self.digital_crc32_async_bb_1, 'out'), (self.lpwan_message_counter_0_0, 'in'))
+        self.msg_connect((self.digital_crc32_async_bb_1, 'out'), (self.lpwan_message_counter_0_0_0_0, 'in'))
         self.msg_connect((self.lpwan_lecim_fsk_phy_0, 'out_rx'), (self.digital_crc32_async_bb_1, 'in'))
+        self.msg_connect((self.lpwan_lecim_fsk_phy_0, 'phr_debug'), (self.lpwan_message_counter_0_0, 'in'))
+        self.msg_connect((self.lpwan_lecim_fsk_phy_0, 'out_rx'), (self.lpwan_message_counter_0_0_0, 'in'))
         self.connect((self.analog_noise_source_x_0, 0), (self.blocks_add_xx_0, 0))
+        self.connect((self.analog_random_source_x_0, 0), (self.blocks_stream_to_tagged_stream_0, 0))
         self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 0))
         self.connect((self.blocks_add_xx_0, 0), (self.blocks_throttle_0, 0))
-        self.connect((self.blocks_complex_to_mag_squared_0, 0), (self.qtgui_time_sink_x_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.blocks_multiply_xx_0, 1))
         self.connect((self.blocks_multiply_xx_0, 0), (self.blocks_add_xx_0, 1))
+        self.connect((self.blocks_stream_to_tagged_stream_0, 0), (self.blocks_tagged_stream_to_pdu_0, 0))
         self.connect((self.blocks_tag_gate_0, 0), (self.lpwan_lecim_fsk_phy_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.blocks_tag_gate_0, 0))
-        self.connect((self.lpwan_lecim_fsk_phy_0, 1), (self.blocks_complex_to_mag_squared_0, 0))
         self.connect((self.lpwan_lecim_fsk_phy_0, 0), (self.blocks_multiply_const_vxx_0, 0))
         self.connect((self.lpwan_lecim_fsk_phy_0, 2), (self.qtgui_time_sink_x_0_0, 0))
         self.connect((self.lpwan_message_counter_0, 0), (self.qtgui_number_sink_0, 0))
         self.connect((self.lpwan_message_counter_0_0, 0), (self.qtgui_number_sink_0, 1))
+        self.connect((self.lpwan_message_counter_0_0_0, 0), (self.qtgui_number_sink_0, 2))
+        self.connect((self.lpwan_message_counter_0_0_0_0, 0), (self.qtgui_number_sink_0, 3))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
@@ -296,7 +255,6 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_sps(self, sps):
         self.sps = sps
         self.qtgui_time_sink_x_0_0.set_samp_rate(self.samp_rate_1*self.sps)
-        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate_1*self.sps)
         self.lpwan_lecim_fsk_phy_0.set_sps(self.sps)
         self.blocks_throttle_0.set_sample_rate(self.samp_rate_1 * self.sps *self.resampling)
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate_1*self.sps*self.resampling)
@@ -313,7 +271,6 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_samp_rate_1(self, samp_rate_1):
         self.samp_rate_1 = samp_rate_1
         self.qtgui_time_sink_x_0_0.set_samp_rate(self.samp_rate_1*self.sps)
-        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate_1*self.sps)
         self.blocks_throttle_0.set_sample_rate(self.samp_rate_1 * self.sps *self.resampling)
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate_1*self.sps*self.resampling)
 

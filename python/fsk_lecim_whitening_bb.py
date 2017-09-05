@@ -58,7 +58,6 @@ class fsk_lecim_whitening_bb(gr.sync_block):
             for i in range(len(out)):
                 if (len(self.offset_rel)>0):
                     if(i == self.offset_rel[0]):
-                        print "reset", self.offset_rel[0]
                         self.reset_PN()
                         self.offset_rel = np.delete(self.offset_rel, 0)
                 PN9n = self.PN9[3]^self.PN9[8]

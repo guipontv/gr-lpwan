@@ -716,7 +716,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1592, 696)</value>
+      <value>(1000, 600)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -767,7 +767,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -1724,7 +1724,7 @@
     </param>
     <param>
       <key>len_est</key>
-      <value>100</value>
+      <value>10</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1733,6 +1733,57 @@
     <param>
       <key>minoutbuf</key>
       <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>lecim_fsk_signal_detector</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(712, 680)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>lecim_fsk_signal_detector_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>preamble</key>
+      <value>phy.preamble_mod</value>
+    </param>
+    <param>
+      <key>sps</key>
+      <value>sps</value>
+    </param>
+    <param>
+      <key>threshold</key>
+      <value>threshold_0</value>
     </param>
   </block>
   <block>
@@ -1783,135 +1834,6 @@
     </param>
   </block>
   <block>
-    <key>lpwan_conj_multiply_delay_ccc</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>delay</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(728, 724)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>lpwan_conj_multiply_delay_ccc_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lpwan_conj_multiply_delay_ccc</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>delay</key>
-      <value>2</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(720, 756)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>lpwan_conj_multiply_delay_ccc_0_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>lpwan_conj_multiply_delay_ccc</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>delay</key>
-      <value>3</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(712, 788)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>lpwan_conj_multiply_delay_ccc_0_0_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
     <key>lpwan_fsk_lecim_corr_est_cc</key>
     <param>
       <key>alias</key>
@@ -1931,7 +1853,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1312, 704)</value>
+      <value>(1288, 656)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2092,7 +2014,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1352, 912)</value>
+      <value>(1352, 816)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2249,7 +2171,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1112, 704)</value>
+      <value>(1024, 656)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2445,7 +2367,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(568, 896)</value>
+      <value>(872, 800)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2584,57 +2506,6 @@
     <param>
       <key>spreading_factor</key>
       <value>phy.phyLecimFskSpreadingFactor</value>
-    </param>
-  </block>
-  <block>
-    <key>lpwan_fsk_lecim_synchronizer_cc</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(904, 696)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>lpwan_fsk_lecim_synchronizer_cc_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>sps</key>
-      <value>phy.sps</value>
-    </param>
-    <param>
-      <key>threshold</key>
-      <value>threshold_0</value>
-    </param>
-    <param>
-      <key>preamble</key>
-      <value>phy.preamble_mod</value>
     </param>
   </block>
   <block>
@@ -2903,7 +2774,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1592, 772)</value>
+      <value>(1568, 692)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2985,11 +2856,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1144, 788)</value>
+      <value>(912, 708)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -3688,7 +3559,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(376, 876)</value>
+      <value>(616, 780)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -3715,7 +3586,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(376, 956)</value>
+      <value>(632, 860)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -3796,7 +3667,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(776, 900)</value>
+      <value>(1080, 804)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -3945,25 +3816,25 @@
   </connection>
   <connection>
     <source_block_id>lecim_fsk_normalizer_0</source_block_id>
-    <sink_block_id>lpwan_conj_multiply_delay_ccc_0</sink_block_id>
+    <sink_block_id>lecim_fsk_signal_detector_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lecim_fsk_normalizer_0</source_block_id>
-    <sink_block_id>lpwan_conj_multiply_delay_ccc_0_0</sink_block_id>
+    <source_block_id>lecim_fsk_signal_detector_0</source_block_id>
+    <sink_block_id>pad_sink_3_1</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>lecim_fsk_signal_detector_0</source_block_id>
+    <sink_block_id>blocks_tag_debug_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lecim_fsk_normalizer_0</source_block_id>
-    <sink_block_id>lpwan_conj_multiply_delay_ccc_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lecim_fsk_normalizer_0</source_block_id>
-    <sink_block_id>lpwan_fsk_lecim_synchronizer_cc_0</sink_block_id>
+    <source_block_id>lecim_fsk_signal_detector_0</source_block_id>
+    <sink_block_id>lpwan_fsk_lecim_freq_offset_est_cc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -3974,33 +3845,9 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>lpwan_conj_multiply_delay_ccc_0</source_block_id>
-    <sink_block_id>lpwan_fsk_lecim_synchronizer_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lpwan_conj_multiply_delay_ccc_0_0</source_block_id>
-    <sink_block_id>lpwan_fsk_lecim_synchronizer_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lpwan_conj_multiply_delay_ccc_0_0_0</source_block_id>
-    <sink_block_id>lpwan_fsk_lecim_synchronizer_cc_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
     <source_block_id>lpwan_fsk_lecim_corr_est_cc_0</source_block_id>
     <sink_block_id>pad_sink_3</sink_block_id>
     <source_key>1</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lpwan_fsk_lecim_corr_est_cc_0</source_block_id>
-    <sink_block_id>blocks_tag_debug_0_0</sink_block_id>
-    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
@@ -4096,18 +3943,6 @@
   <connection>
     <source_block_id>lpwan_fsk_lecim_spreading_bb_0_0_0</source_block_id>
     <sink_block_id>virtual_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lpwan_fsk_lecim_synchronizer_cc_0</source_block_id>
-    <sink_block_id>pad_sink_3_1</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>lpwan_fsk_lecim_synchronizer_cc_0</source_block_id>
-    <sink_block_id>lpwan_fsk_lecim_freq_offset_est_cc_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

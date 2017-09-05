@@ -81,3 +81,5 @@ GR_ADD_TEST(qa_fsk_lecim_normalize_fcc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOUR
 GR_ADD_TEST(qa_fsk_lecim_freq_offset_est_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_freq_offset_est_cc.py)
 GR_ADD_TEST(qa_fsk_lecim_synchronizer_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_synchronizer_cc.py)
 GR_ADD_TEST(qa_fsk_lecim_time_synchronizer_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_time_synchronizer_cc.py)
+GR_ADD_TEST(qa_fsk_lecim_correlation_filter ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_correlation_filter.py)
+GR_ADD_TEST(qa_fsk_lecim_detector ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_fsk_lecim_detector.py)

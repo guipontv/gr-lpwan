@@ -86,7 +86,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
                 maximum = X[i]
                 maxindex = i
         #fine tuning 
-        indexfine =  maxindex + ( (log(X[maxindex-1])-log(X[maxindex+1])) / (2*( log(X[maxindex-1])+log(X[maxindex+1])-2*log(X[maxindex]) )) )
+        indexfine =  maxindex #+ ( (log(X[maxindex-1])-log(X[maxindex+1])) / (2*( log(X[maxindex-1])+log(X[maxindex+1])-2*log(X[maxindex]) )) )
         freq_off = indexfine  * self.sps*self.symbol_rate / float(K*self.len) 
 
         if(abs(freq_off - 0) < self.freq_dev):
@@ -95,7 +95,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
             self.freq_off = freq_off - 2 *self.freq_dev
         if(abs(freq_off - self.symbol_rate) < self.freq_dev):
             self.freq_off = freq_off - self.symbol_rate
-        
+        print self.freq_off
         self.add_item_tag(0, self.offset, self.key, pmt.from_double(self.freq_off))
         self.num = 0
 
@@ -109,7 +109,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         len_out = min(len(out),self.n_input_items)
         for i in range(len_out):
             out[i] = in0[i]*exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))*exp(1j*self.phase_off)
-        self.phase_off = np.angle(out[-1])+2*pi*self.freq_dev/(self.sps*self.symbol_rate)
+        self.phase_off = np.angle(out[-1])+2*pi*self.freq_off/(self.sps*self.symbol_rate)
         self.consume(0, len_out)
         self.produce(0, len_out)
         return -2

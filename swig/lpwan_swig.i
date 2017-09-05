@@ -43,6 +43,8 @@
 #include "lpwan/fsk_lecim_phr_parser.h"
 #include "lpwan/fsk_lecim_normalize_fcc.h"
 #include "lpwan/fsk_lecim_synchronizer_cc.h"
+#include "lpwan/fsk_lecim_correlation_filter.h"
+#include "lpwan/fsk_lecim_detector.h"
 %}
 
 %include "lpwan/dsss_interleaver_bb.h"
@@ -91,3 +93,7 @@ GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_normalize_fcc);
 
 %include "lpwan/fsk_lecim_synchronizer_cc.h"
 GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_synchronizer_cc);
+%include "lpwan/fsk_lecim_correlation_filter.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_correlation_filter);
+%include "lpwan/fsk_lecim_detector.h"
+GR_SWIG_BLOCK_MAGIC2(lpwan, fsk_lecim_detector);

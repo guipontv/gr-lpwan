@@ -40,6 +40,7 @@ namespace gr {
       bool d_output_symbols;
       size_t d_itemsize;
       int d_curr_payload_len;
+      int d_counter;
       int d_counter_phr;
       int d_counter_pdu;
       int d_nblock;
