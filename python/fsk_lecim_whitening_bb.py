@@ -30,6 +30,7 @@ class fsk_lecim_whitening_bb(gr.sync_block):
     def __init__(self, whitening):
         self.white = whitening
         self.PN9 = np.ones((9, ), dtype=int)
+        self.offset_rel = np.array([])
 
         gr.sync_block.__init__(self,
             name="fsk_lecim_whitening_bb",
@@ -44,7 +45,10 @@ class fsk_lecim_whitening_bb(gr.sync_block):
         if tags:
             for i in range(len(tags)):
                 if (pmt.eq(key, tags[i].key)):
-                   self.PN9 = np.ones((9, ), dtype=int)
+                    self.offset_rel = np.append(self.offset_rel, tags[i].offset - n_read) 
+
+    def reset_PN(self):
+        self.PN9 = np.ones((9, ), dtype=int)
                     
     def work(self, input_items, output_items):
         in0 = input_items[0]
@@ -52,6 +56,11 @@ class fsk_lecim_whitening_bb(gr.sync_block):
         self.tag_handler(len(in0))
         if self.white:
             for i in range(len(out)):
+                if (len(self.offset_rel)>0):
+                    if(i == self.offset_rel[0]):
+                        print "reset", self.offset_rel[0]
+                        self.reset_PN()
+                        self.offset_rel = np.delete(self.offset_rel, 0)
                 PN9n = self.PN9[3]^self.PN9[8]
                 self.PN9 = np.insert(self.PN9, 0, PN9n)
                 self.PN9 = np.delete(self.PN9, 9)
