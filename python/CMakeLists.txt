@@ -41,7 +41,7 @@ GR_PYTHON_INSTALL(
     fsk_lecim_demodulator_cb.py
     fsk_lecim_zero_depadding_bb.py
     fsk_lecim_freq_offset_est_cc.py
-    DESTINATION ${GR_PYTHON_DIR}/lpwan
+    iterator.py DESTINATION ${GR_PYTHON_DIR}/lpwan
     COMPONENT "lpwan_python"
 )
 

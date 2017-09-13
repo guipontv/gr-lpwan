@@ -36,6 +36,9 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
         self.symbol_rate = symbol_rate
         self.delay = 0
         self.phase_off = 0
+        self.last_offset = -1
+        self.input_ctr = 0
+        self.output_ctr = 0
         gr.basic_block.__init__(self,
             name="fsk_lecim_demodulator_cb",
             in_sig=[np.complex64],
@@ -43,12 +46,12 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
+        self.set_tag_propagation_policy(0)
         ninput_items_required[0] = (noutput_items+1)*self.sps
         #self.set_history(len(self.SFD))
         self.set_output_multiple(2)
 
     def tag_handler(self, ninput_items):
-        self.set_tag_propagation_policy(0)
         nread = self.nitems_read(0) #number of items read on port 0
         tags = self.get_tags_in_range(0, nread, nread+ninput_items)
         key_1 = pmt.intern("corr_start")
@@ -56,14 +59,16 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
         key_4 = pmt.intern("SFD_start")
         if tags:
             for i in range(len(tags)):
-                if (pmt.eq(key_1, tags[i].key)):
-                    offset = tags[i].offset
-                    value = pmt.from_double(float(pmt.to_double(tags[i].value)))
-                    self.add_item_tag(0, offset, key_1, value)
+                # if (pmt.eq(key_1, tags[i].key)):
+                #     offset = tags[i].offset
+                #     value = pmt.from_double(float(pmt.to_double(tags[i].value)))
+                #     self.add_item_tag(0, offset, key_1, value)
                 if (pmt.eq(key_2, tags[i].key)):
-                    offset = int(tags[i].offset/self.sps)
-                    value = pmt.from_double(float(pmt.to_double(tags[i].value)))
-                    self.add_item_tag(0, offset, key_2, value)
+                    if(self.last_offset != tags[i].offset):
+                        self.last_offset = tags[i].offset
+                        offset = int(tags[i].offset/self.sps)
+                        value = pmt.from_double(float(pmt.to_double(tags[i].value)))
+                        self.add_item_tag(0, offset, key_2, value)
                 if (pmt.eq(key_4, tags[i].key)):
                     self.delay = tags[i].offset % self.sps
 
@@ -77,7 +82,7 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
 
         Z = [0, 0, 0, 0]
         
-        sine = np.array([exp(1j*2*pi*self.freq_dev*i/(self.sps*self.symbol_rate)) for i in range(len(in0))])
+        sine = np.array([exp(1j*2*pi*self.freq_dev*i/(self.sps*self.symbol_rate)+1j*self.phase_off) for i in range(len(in0))])
         self.phase_off = np.angle(sine[-1])+2*pi*self.freq_dev/(self.sps*self.symbol_rate)
         sineconj = np.conj(sine)
         A = np.array([in0 * sine, in0 * sineconj])
@@ -85,7 +90,7 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
             for k in range(len(out)):
                 sum0 = np.array([np.sum(A[0][k*self.sps+self.delay:(k+1)*self.sps+self.delay]),
                                 np.sum(A[1][k*self.sps+self.delay:(k+1)*self.sps+self.delay])])
-                if (k%2) == 1:
+                if (k%2) == 0:
                     Z[0:2] = abs(sum0)**2
                 else:
                     Z[2:] = abs(sum0)**2
@@ -114,8 +119,11 @@ class fsk_lecim_demodulator_cb(gr.basic_block):
                 else:
                     out[k] = 1
 
-
         self.consume(0, len(out)*self.sps)
         self.produce(0, len(out))
+        # self.input_ctr += (len(out)*self.sps)
+        # self.output_ctr += len(out)
+        # print "input ", np.sign(len(in0) - 2*len(out)), self.input_ctr
+        # print "output ", self.output_ctr
         return -2
 

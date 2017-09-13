@@ -30,7 +30,7 @@ class message_counter(gr.sync_block):
     set interval=0 to count all messages
     scale is multiplied to the count value
     """
-    def __init__(self, interval, scale):
+    def __init__(self, interval, scale, check = False):
         gr.sync_block.__init__(self,
             name="message_counter",
             in_sig=None,
@@ -43,12 +43,25 @@ class message_counter(gr.sync_block):
         self.interval = interval
         self.scale = scale
         self.msges = []
+        self.check = check
+        self.index = 0
 
     def input_msg(self, msg):
         if self.interval != 0:
             self.msges.append(time.time())
         else:
             self.msges.append(1)
+        vector = pmt.cdr(msg)
+        if(self.check):
+            if(pmt.is_u8vector(vector)):
+                d = np.array(pmt.u8vector_elements(vector), dtype = np.uint8)
+                #print self.index, d[0]*256+d[1]
+                if(self.index!=d[0]*256+d[1]):
+                    print "////////////////////////////////////////////////////////////"
+                    print "packet drop ////////////////////////////////////////", self.index
+                    print "////////////////////////////////////////////////////////////"
+                    self.index += 1
+            self.index += 1
 
     def update_count(self):
         if self.interval == 0:

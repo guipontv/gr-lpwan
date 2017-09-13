@@ -53,7 +53,8 @@ list(APPEND lpwan_sources
     fsk_lecim_normalize_fcc_impl.cc
     fsk_lecim_synchronizer_cc_impl.cc
     fsk_lecim_correlation_filter_impl.cc
-    fsk_lecim_detector_impl.cc )
+    fsk_lecim_detector_impl.cc
+    msg_debug_impl.cc )
 
 list(APPEND lpwan_libs
     ${Boost_LIBRARIES}

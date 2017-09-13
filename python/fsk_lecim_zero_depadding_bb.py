@@ -55,7 +55,7 @@ class fsk_lecim_zero_depadding_bb(gr.basic_block):
                 if (pmt.eq(key, tags[i].key)):
                     self.offset_rel = tags[i].offset - n_read 
                     self.pdu_len = pmt.to_long(tags[i].value) * 8
-                    self.add_item_tag(0, self.offset_tag, key,  pmt.from_long(self.pdu_len))
+                    self.add_item_tag(0, self.offset_tag, key, pmt.from_long(self.pdu_len))
                     self.offset_tag = self.offset_tag + self.pdu_len
                     self.num = 1
                     break

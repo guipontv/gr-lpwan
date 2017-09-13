@@ -52,9 +52,12 @@ class fsk_lecim_modulator_fc(gr.interp_block):
             modulo = 2
         if(self.symbol_rate == 12500):
             modulo = 1
-        out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
-                            *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
-                            for k in range(len(out))], np.complex64)
+        # out[:] = np.array([abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps]
+        #                     *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
+        #                     for k in range(len(out))], np.complex64)
+
+        for k in range(len(out)):
+            out[k] = abs(in0[k/self.sps]) * exp(1j*2*pi*in0[k/self.sps] *self.freq_dev*(k+self.sps*self.counter)/(self.sps*self.symbol_rate)) 
         angle[:] = np.angle(out)
         self.counter = ((self.counter + len(in0))%modulo)
 

@@ -58,6 +58,7 @@ namespace gr {
     {
       d_sps = sps;
       d_thresh = threshold;
+      d_ctr = 0;
       const size_t nitems = 24*1024;
       set_max_noutput_items(nitems);
       d_corr = (gr_complex *) volk_malloc(sizeof(gr_complex)*nitems, volk_get_alignment());
@@ -139,10 +140,11 @@ namespace gr {
 
       float corr_mag = d_corr_mag[local_max_index];
       if(corr_mag >= d_thresh * d_nsamples*d_nsamples){
+          d_ctr++;
           add_item_tag(0, nitems_written(0) + local_max_index + 1 - 48, pmt::intern("SFD_start"),
-                       pmt::from_double(d_corr_mag[local_max_index]), d_src_id);
+                       pmt::from_long(d_ctr), d_src_id);
           add_item_tag(0, nitems_written(0) + local_max_index + 1, pmt::intern("phr_start"),
-                       pmt::from_double(d_corr_mag[local_max_index]), d_src_id);
+                       pmt::from_double(corr_mag), d_src_id);
 
         }
 

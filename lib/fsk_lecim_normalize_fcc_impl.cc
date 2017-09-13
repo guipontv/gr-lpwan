@@ -70,7 +70,7 @@ namespace gr {
         factor = sqrt(in1[i]-d_noise);
         }
         else{
-          d_noise = in1[i] ;
+          d_noise = 0 ;in1[i] ;
         }
         
         out[i] = in0[i]/factor;

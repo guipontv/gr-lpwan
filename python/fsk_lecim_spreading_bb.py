@@ -32,8 +32,8 @@ class fsk_lecim_spreading_bb(gr.interp_block):
         self.spreading = spreading
         self.factor = spreading_factor if self.spreading else 1
         self.alternate = alternating
-        self.data_out_0 = 0
-        self.data_out_1 = 1
+        self.data_out_0 = [0,0]
+        self.data_out_1 = [1,1]
         self.setup = 0
         gr.interp_block.__init__(self,
             name="fsk_lecim_spreading_bb",

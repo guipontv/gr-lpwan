@@ -48,6 +48,7 @@ install(FILES
     fsk_lecim_normalize_fcc.h
     fsk_lecim_synchronizer_cc.h
     fsk_lecim_correlation_filter.h
-    fsk_lecim_detector.h DESTINATION ${GR_INCLUDE_DIR}/gnuradio/lpwan
+    fsk_lecim_detector.h
+    msg_debug.h DESTINATION ${GR_INCLUDE_DIR}/gnuradio/lpwan
     COMPONENT "lpwan_devel"
 )

@@ -208,8 +208,8 @@ bool fsk_lecim_phr_pdu_demux_impl::check_buffers_ready(
           //   info
           CONSUME_ITEMS(1);
           d_phr_error +=1;
-          if(d_phr_error > 41){
-            d_phr_error = 0;
+          if(d_phr_error > 1){
+            d_phr_error = d_counter + 1;
             std::cout<<"Rx fail\n";
             d_state = STATE_SEARCH_SIGNAL;
           }
@@ -220,8 +220,8 @@ bool fsk_lecim_phr_pdu_demux_impl::check_buffers_ready(
 
         case STATE_HEADER_RX_SUCCESS: {
           d_counter++;
-          std::cout<<"SUCCESS no /////////////////// "<<d_phr_error<<" /// "<< d_counter <<"\n";
-          d_phr_error =0;
+          //std::cout<<"SUCCESS no /////////////////// "<<d_phr_error<<" /// "<< d_counter <<"\n";
+          //d_phr_error =0;
           const int items_to_consume = d_output_symbols ? d_header_len * d_sf : d_header_len * d_sf * d_sps; 
           CONSUME_ITEMS(items_to_consume);
           float a = (float) (8*d_curr_payload_len+6)/36; 
@@ -299,12 +299,12 @@ bool fsk_lecim_phr_pdu_demux_impl::check_buffers_ready(
           double max = 0;
           int max_index = 0;
           for(int i = 0; i<tags.size(); i++){
+            //std::cout<<"OFFSET "<<tags[i].offset<<" /// "<< pmt::to_double(tags[i].value) <<"\n";
             if(pmt::to_double(tags[i].value) > max){
               max = pmt::to_double(tags[i].value);
               max_index = i;
             }
           }
-          // std::cout<<"MAX CORR "<<max<<"\n";
 
           const int tag_rel_offset = tags[max_index].offset - base_offset;
           if (tag_rel_offset < rel_offset) {

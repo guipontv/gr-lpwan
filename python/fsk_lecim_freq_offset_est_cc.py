@@ -60,7 +60,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         key = pmt.intern("corr_start")
         if tags:
             for i in range(len(tags)):
-                if (pmt.eq(key, tags[i].key)):
+                if (pmt.eq(key, tags[i].key) and self.offset != tags[i].offset): 
                     self.offset = tags[i].offset
                     self.num = 1
         else:
@@ -70,32 +70,53 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         K = 2
         r1 = np.zeros((self.len,), dtype=complex)
         r2 = np.zeros((self.len,), dtype=complex)
-        for j in range(self.len):
+        for j in range(int(self.len/self.sps)):
             if j%2==0:
-                r1[j]= in0[j]*exp(-1j*2*pi*self.freq_dev*j/(self.sps*self.symbol_rate))
-            else:
-                r2[j]= in0[j]*exp(1j*2*pi*self.freq_dev*j/(self.sps*self.symbol_rate))
+                for i in range(self.sps):
+                    r1[j+i]= in0[j+i]*exp(-1j*2*pi*self.freq_dev*(j+i)/(self.sps*self.symbol_rate))
+            if j%2==1:
+                for i in range(self.sps):
+                    r2[j+i]= in0[j+i]*exp(1j*2*pi*self.freq_dev*(j+i)/(self.sps*self.symbol_rate))
 
         X = abs(np.fft.fft(r1, K*self.len))+abs(np.fft.fft(r2, K*self.len))
         maximum = 0
         maxindex = 0
         
         #coarse tuning
-        for i in range(self.len):
+        for i in range(len(X)):
             if X[i]>maximum:
                 maximum = X[i]
                 maxindex = i
+        if(maxindex == K*self.len - 1 ):
+            maxindex = -1
         #fine tuning 
-        indexfine =  maxindex #+ ( (log(X[maxindex-1])-log(X[maxindex+1])) / (2*( log(X[maxindex-1])+log(X[maxindex+1])-2*log(X[maxindex]) )) )
+        if(X[maxindex-1]>0 and X[maxindex]>0 and X[maxindex+1]>0):
+            fine = ( (log(X[maxindex-1])-log(X[maxindex+1])) / (2*( log(X[maxindex-1])+log(X[maxindex+1])-2*log(X[maxindex]) )) )
+        else:
+            fine = 0
+        indexfine =  maxindex + fine
         freq_off = indexfine  * self.sps*self.symbol_rate / float(K*self.len) 
+        
+        if(maxindex == 0 and freq_off == 0):
+            freq_off = self.freq_off
 
-        if(abs(freq_off - 0) < self.freq_dev):
-            self.freq_off = freq_off
-        if(abs(freq_off - 2 *self.freq_dev) < self.freq_dev):
-            self.freq_off = freq_off - 2 *self.freq_dev
-        if(abs(freq_off - self.symbol_rate) < self.freq_dev):
-            self.freq_off = freq_off - self.symbol_rate
-        print self.freq_off
+        if(freq_off<self.sps*self.symbol_rate/2):
+            self.freq_off = int(freq_off)
+        else:
+            self.freq_off = int(freq_off) - self.sps*self.symbol_rate
+
+        print maxindex, freq_off, self.freq_off
+        # if(abs(freq_off) < self.freq_dev):
+        #     self.freq_off = freq_off
+        #     #print "1", a, freq_off, self.freq_off, int(self.freq_off)
+        #     a +=1
+        # if(abs(freq_off - 2 *self.freq_dev) < self.freq_dev):
+        #     self.freq_off = freq_off - 2 *self.freq_dev
+        #     #print "2", a, freq_off, self.freq_off
+        #     a +=1
+        # if(abs(freq_off - self.symbol_rate) < self.freq_dev):
+        #     self.freq_off = freq_off - self.symbol_rate
+        #     #print "3", a, abs(freq_off - self.symbol_rate), freq_off, self.freq_off
         self.add_item_tag(0, self.offset, self.key, pmt.from_double(self.freq_off))
         self.num = 0
 
@@ -108,7 +129,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         options[self.num](in0)
         len_out = min(len(out),self.n_input_items)
         for i in range(len_out):
-            out[i] = in0[i]*exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))*exp(1j*self.phase_off)
+            out[i] = exp(-1j*2*pi*i*self.freq_off/(self.symbol_rate*self.sps))#*exp(1j*self.phase_off)
         self.phase_off = np.angle(out[-1])+2*pi*self.freq_off/(self.sps*self.symbol_rate)
         self.consume(0, len_out)
         self.produce(0, len_out)

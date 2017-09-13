@@ -36,6 +36,7 @@ namespace gr {
       std::vector<gr_complex> d_symbols;
       int d_nsamples;
       int d_sps;
+      int d_ctr;
       unsigned int d_mark_delay, d_stashed_mark_delay;
       float d_thresh, d_stashed_threshold;
       kernel::fft_filter_ccc *d_filter;

@@ -4,7 +4,7 @@
   <key>lpwan_message_counter</key>
   <category>[LPWAN]</category>
   <import>import lpwan</import>
-  <make>lpwan.message_counter($interval, $scale)</make>
+  <make>lpwan.message_counter($interval, $scale, $check)</make>
 
   <param>
     <name>Interval(s)</name>
@@ -18,6 +18,20 @@
     <key>scale</key>
     <value>1</value>
     <type>float</type>
+  </param>
+
+  <param>
+    <name>Check</name>
+    <key>check</key>
+    <type>enum</type>
+    <option>
+      <name>True</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>False</name>
+      <key>False</key>
+    </option>
   </param>
 
   <sink>
