@@ -46,7 +46,7 @@ namespace gr {
        * class. lpwan::fsk_lecim_detector::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int len_preamble, int delay, float threshold);
+      static sptr make(int len_preamble, int sps, int delay, float threshold);
     };
 
   } // namespace lpwan

@@ -30,22 +30,23 @@ namespace gr {
   namespace lpwan {
 
     fsk_lecim_detector::sptr
-    fsk_lecim_detector::make(int len_preamble, int delay, float threshold)
+    fsk_lecim_detector::make(int len_preamble, int sps, int delay, float threshold)
     {
       return gnuradio::get_initial_sptr
-        (new fsk_lecim_detector_impl(len_preamble, delay, threshold));
+        (new fsk_lecim_detector_impl(len_preamble, sps, delay, threshold));
     }
 
     /*
      * The private constructor
      */
-    fsk_lecim_detector_impl::fsk_lecim_detector_impl(int len_preamble, int delay, float threshold)
+    fsk_lecim_detector_impl::fsk_lecim_detector_impl(int len_preamble, int sps, int delay, float threshold)
       : gr::sync_block("fsk_lecim_detector",
               gr::io_signature::make2(2, 2, sizeof(gr_complex), sizeof(float)),
               gr::io_signature::make(1, 1, sizeof(gr_complex))),
       d_src_id(pmt::intern(alias()))
     {
       d_len = len_preamble;
+      d_sps = sps;
       d_delay = delay;
       d_threshold = 0;
       for(int i=1;i<=d_delay;i++){
@@ -78,6 +79,10 @@ namespace gr {
       if(in1[index_local_max]>=d_threshold){
 
         add_item_tag(0, nitems_read(0) + index_local_max, pmt::intern("corr_start"),
+                      pmt::from_double(in1[index_local_max]), d_src_id);
+        add_item_tag(0, nitems_read(0) + index_local_max+d_len - 24 * d_sps, pmt::intern("SFD_start"),
+                      pmt::from_double(in1[index_local_max]), d_src_id);
+        add_item_tag(0, nitems_read(0) + index_local_max+d_len, pmt::intern("phr_start"),
                       pmt::from_double(in1[index_local_max]), d_src_id);
       }
       memcpy(out, in0, sizeof(gr_complex)*noutput_items);

@@ -4,7 +4,7 @@
   <key>lpwan_fsk_lecim_detector</key>
   <category>[LPWAN]</category>
   <import>import lpwan</import>
-  <make>lpwan.fsk_lecim_detector($len_preamble, $delay, $threshold)</make>
+  <make>lpwan.fsk_lecim_detector($len_preamble, $sps, $delay, $threshold)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
@@ -15,7 +15,11 @@
     <key>len_preamble</key>
     <type>int</type>
   </param>
-
+  <param>
+    <name>Sample per symbol</name>
+    <key>sps</key>
+    <type>int</type>
+  </param>
   <param>
     <name>Delay max</name>
     <key>delay</key>

@@ -44,6 +44,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         self.phase_off = 0
         self.len_out = 0
         self.n_to_produce = 0
+        self.factor = 25000/float(self.symbol_rate)
         gr.basic_block.__init__(self,
             name="fsk_lecim_freq_offset_est_cc",
             in_sig=[np.complex64],
@@ -128,7 +129,7 @@ class fsk_lecim_freq_offset_est_cc(gr.basic_block):
         # else:
         #     fine = 0
         indexfine =  maxindex #+ fine
-        freq_off = indexfine  * self.sps * self.symbol_rate 
+        freq_off = indexfine  * self.factor * self.sps * self.symbol_rate 
         
         if(maxindex == 0 and freq_off == 0):
             freq_off = self.freq_off

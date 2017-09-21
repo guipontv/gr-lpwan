@@ -31,10 +31,11 @@ namespace gr {
      private:
       pmt::pmt_t d_src_id;
       int d_len;
+      int d_sps;
       int d_delay;
       float d_threshold;
      public:
-      fsk_lecim_detector_impl(int len_preamble, int delay, float threshold);
+      fsk_lecim_detector_impl(int len_preamble, int sps, int delay, float threshold);
       ~fsk_lecim_detector_impl();
 
       // Where all the action really happens

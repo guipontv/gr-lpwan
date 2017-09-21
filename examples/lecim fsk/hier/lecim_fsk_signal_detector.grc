@@ -156,7 +156,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 276)</value>
+      <value>(640, 212)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -211,7 +211,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 348)</value>
+      <value>(640, 284)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -266,7 +266,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 420)</value>
+      <value>(640, 356)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -321,7 +321,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 492)</value>
+      <value>(640, 428)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -376,7 +376,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 564)</value>
+      <value>(640, 500)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -537,7 +537,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 276)</value>
+      <value>(200, 212)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -580,7 +580,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 348)</value>
+      <value>(200, 284)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -623,7 +623,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 420)</value>
+      <value>(200, 356)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -666,7 +666,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 492)</value>
+      <value>(200, 428)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -709,7 +709,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 564)</value>
+      <value>(200, 500)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -752,7 +752,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 264)</value>
+      <value>(392, 200)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -803,7 +803,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 408)</value>
+      <value>(392, 344)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -854,7 +854,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 480)</value>
+      <value>(392, 416)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -905,7 +905,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 552)</value>
+      <value>(392, 488)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -956,7 +956,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 336)</value>
+      <value>(392, 272)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1028,6 +1028,10 @@
     <param>
       <key>minoutbuf</key>
       <value>0</value>
+    </param>
+    <param>
+      <key>sps</key>
+      <value>sps</value>
     </param>
     <param>
       <key>threshold</key>
